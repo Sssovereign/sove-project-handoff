@@ -1,0 +1,6 @@
+interface:
+  display_name: "项目交接（个人版）"
+  short_description: "保存项目决定、真实进度与验证证据，核对状态文档后跨对话接续工作"
+  default_prompt: "使用 $sove-project-handoff 保存当前项目的有效决定、真实进度和下一步，并给出接续开场白。"
+policy:
+  allow_implicit_invocation: true
