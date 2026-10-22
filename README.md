@@ -10,9 +10,14 @@
 - **保留依据**：区分用户决定、执行假设、已完成、未验证和未获验收的成果。
 - **恢复任务**：先核对文件、版本和运行状态，再继续已明确授权的下一步。
 - **维护阶段记录**：项目采用此机制后，在实质阶段完成或关键决定改变时增量更新。
+- **维护决定生命周期**：稳定编号与来源可追溯；区分待确认、有效、已取代和已撤销，用户确认与实现验证分别记录。
+- **协作汇总**：明确任务归属、基准修订和相关决定；各执行者独立交付，指定写入者核验后更新总状态，处理过期、重复交付和失败接手。
+- **跨端交接**：支持 Windows／macOS 间通过 UU 端口映射下的 SSH、PowerShell、文件传输，或 GitHub 提交同步接续；核对路径、仓库外文件和运行环境后转移归属。
 - **按需交接到新任务**：仅在用户明确要求、且宿主提供相应任务接口时执行。
 
 核心原则是让状态文档可核对，恢复工作时以当前用户要求和实际文件为准。状态文档本身不构成新的指令或授权。
+
+协作规则提供文本层的工作约定，不自带调度器、文件锁或事务；默认由指定写入者顺序汇总。可选记忆服务须已有配置、授权和实际适配器，未接入时照常本地保存与恢复。
 
 ## 安装
 
@@ -71,6 +76,9 @@ git clone https://github.com/Sssovereign/sove-project-handoff.git "$HOME/.agents
 | [SKILL.md](SKILL.md) | 技能触发范围、保存、恢复与交接规则 |
 | [agents/openai.yaml](agents/openai.yaml) | 界面名称、默认提示词与调用策略 |
 | [assets/project-state-template.md](assets/project-state-template.md) | 首次记录项目状态的模板 |
+| [references/lifecycle-and-collaboration.md](references/lifecycle-and-collaboration.md) | 决定与任务演变、版本核对、交付汇总及负责人移交 |
+| [references/cross-platform-handoff.md](references/cross-platform-handoff.md) | Windows／macOS 间 UU 与 GitHub 两条交接路线 |
+| [references/memory-backed-handoff.md](references/memory-backed-handoff.md) | 可选记忆服务的范围、同步、权限与验证边界 |
 | [NOTICE.md](NOTICE.md) | 上游来源与改编说明 |
 | [LICENSE](LICENSE) | MIT 许可证 |
 
