@@ -48,12 +48,12 @@ TencentDB Agent Memory可将项目摘要组织为Wiki/记忆资产，将稳定�
 
 ## TencentDB Agent Memory 适配注意事项
 
-以实际部署版本的[官方文档](https://github.com/TencentCloud/TencentDB-Agent-Memory)及接口为准。2026-10-23选读提交`6a4bb55ea54834d8265ce52024d3e3c75db30d38`得到以下适配条件，后续接入时需复核匹配版本：
+以实际部署版本的[官方文档](https://github.com/TencentCloud/TencentDB-Agent-Memory)及接口为准。核对日期为2026-10-23；以下链接固定到仓库快照`6a4bb55ea54834d8265ce52024d3e3c75db30d38`中的具体文件。该哈希标识阅读版本，不表示这些行为由该提交的差异引入；该次提交本身仅修复Panel的User Key复制失败提示。以下区分上游依据与本技能的适配规则，未做实际部署验证，后续接入时需复核匹配版本。
 
-- `private`按Owner用户判断，不能单凭此标签保证同一用户名下不同Agent互相隔离；资产绑定、读取接口和阶段过滤需一起验证。
-- Pi接入说明允许无Task时扩大召回，无效Task也可能被丢弃。严格限定项目的交接必须先验证映射，失败返回空或停止远端调用，不能自动回退到其他任务历史。
-- Core部分内部数据面信任服务凭据，用户级检查依赖调用层；普通用户和Agent不直接持有管理员凭据。固定绑定、ACL、Proxy注入与缓存失效需按实际链路验证，不仅检查面板可见性。
-- Wiki/记忆提炼可能异步完成，须区分已上传、处理中、可检索和已核对。没有实际回执不声明已同步；服务的自动提炼和模型调用成本另按授权预算核实。
+- **private可见性**：上游[权限判定](https://github.com/TencentCloud/TencentDB-Agent-Memory/blob/6a4bb55ea54834d8265ce52024d3e3c75db30d38/MemoryCore/src/metadata/service/permission-checker.ts#L53-L82)按`owner_user_id`优先放行；[绑定判定](https://github.com/TencentCloud/TencentDB-Agent-Memory/blob/6a4bb55ea54834d8265ce52024d3e3c75db30d38/MemoryCore/src/metadata/service/permission-checker.ts#L155-L168)允许同属主、同团队的Agent绑定private资产。本技能据此判断：不能单凭private标签保证同一用户名下不同Agent互相隔离，资产绑定、读取接口和阶段过滤需一起验证。
+- **Task召回范围**：上游[Pi接入说明](https://github.com/TencentCloud/TencentDB-Agent-Memory/blob/6a4bb55ea54834d8265ce52024d3e3c75db30d38/MemoryCore/pi-plugin/README.md#L69-L74)说明无Task时宽范围召回，过期或未知Task会被丢弃并扩大召回。本技能的适配规则是：严格限定项目时先验证映射，失败返回空或停止远端调用，不能自动回退到其他任务历史。
+- **服务凭据信任边界**：上游Core API文档在[记忆读写说明](https://github.com/TencentCloud/TencentDB-Agent-Memory/blob/6a4bb55ea54834d8265ce52024d3e3c75db30d38/MemoryCore/v3-api-memorycore-doc.md#L103-L107)及[内容清空接口](https://github.com/TencentCloud/TencentDB-Agent-Memory/blob/6a4bb55ea54834d8265ce52024d3e3c75db30d38/MemoryCore/v3-api-memorycore-doc.md#L710-L716)中，说明部分接口信任Bearer与实例ID，用户级Owner校验由面板转发前完成；不能泛化为所有接口均无用户级检查。本技能要求普通用户和Agent不直接持有管理员凭据，并按实际链路验证固定绑定、ACL、Proxy注入与缓存失效，不仅检查面板可见性。
+- **异步处理**：上游README说明[记忆异步分层提炼](https://github.com/TencentCloud/TencentDB-Agent-Memory/blob/6a4bb55ea54834d8265ce52024d3e3c75db30d38/README_CN.md#L218-L229)，以及[Wiki与CodeGraph异步构建、需等待ready](https://github.com/TencentCloud/TencentDB-Agent-Memory/blob/6a4bb55ea54834d8265ce52024d3e3c75db30d38/README_CN.md#L249-L253)。本技能因此区分已上传、处理中、可检索和已核对；没有实际回执不声明已同步，自动提炼和模型调用成本另按授权预算核实。
 
 ## 接入时验证什么
 
