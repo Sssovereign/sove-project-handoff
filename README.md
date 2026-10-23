@@ -18,7 +18,7 @@
 
 决定采用四状态，以单独表达“用户撤销且没有替代”的情形；只有被取代时要求替代编号。来源类别是独立维度，“候选建议＋待确认”是正常组合，不能因状态相同而省略来源。
 
-协作规则提供文本层的工作约定，不自带调度器、文件锁或事务；默认由指定写入者顺序汇总。可选记忆服务须已有配置、授权和实际适配器，未接入时照常本地保存与恢复。
+协作规则提供文本层的工作约定，不自带调度器、文件锁或事务；默认由指定写入者顺序汇总。可选记忆服务须已有配置、授权和实际适配器，未接入时照常本地保存与恢复。决定生命周期与记忆服务的组织方式参考了 [TencentDB Agent Memory](https://github.com/TencentCloud/TencentDB-Agent-Memory) 的设计思想，仅借鉴理念，未引入其运行时或代码。
 
 ## 安装
 
@@ -79,7 +79,7 @@ git clone https://github.com/Sssovereign/sove-project-handoff.git "$HOME/.agents
 | [assets/project-state-template.md](assets/project-state-template.md) | 首次记录项目状态的模板 |
 | [references/lifecycle-and-collaboration.md](references/lifecycle-and-collaboration.md) | 决定与任务演变、版本核对、交付汇总及负责人移交 |
 | [references/memory-backed-handoff.md](references/memory-backed-handoff.md) | 可选记忆服务的范围、同步、权限与验证边界 |
-| [NOTICE.md](NOTICE.md) | 上游来源与改编说明 |
+| [NOTICE.md](NOTICE.md) | 上游来源、改编说明与设计参考来源 |
 | [LICENSE](LICENSE) | MIT 许可证 |
 
 技能正文按跨平台文本工作流编写；实际执行能力取决于宿主的文件权限与任务工具。不提供压缩次数检测或自动监控。公开分享项目状态文件前，请检查其中的项目路径和业务信息；仓库只包含空白模板，不包含实际项目记录。
@@ -93,5 +93,7 @@ git clone https://github.com/Sssovereign/sove-project-handoff.git "$HOME/.agents
 ## 来源与许可
 
 根据 [duoduoler-ops/Table-skills 的 project-handoff](https://github.com/duoduoler-ops/Table-skills/tree/main/project-handoff) 改编，由 [Sssovereign](https://github.com/Sssovereign) 发布此改编版本。
+
+决定生命周期、信息分层、来源与版本治理和可复用流程等设计参考 [TencentDB Agent Memory](https://github.com/TencentCloud/TencentDB-Agent-Memory)；仅借鉴设计思想，未复制其代码或引入其运行时，具体边界见 [NOTICE.md](NOTICE.md)。
 
 采用 [MIT License](LICENSE)，保留上游版权声明；修改范围见 [NOTICE.md](NOTICE.md)。此仓库不代表上游维护者或 OpenAI 官方发布。
